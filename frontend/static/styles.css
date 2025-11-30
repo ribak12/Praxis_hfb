@@ -1,0 +1,440 @@
+/* =========================================================
+   Praxis — corrected styles.css
+   - theme variables added for pills, nav, scrollbar, timer ring
+   - components updated to use those variables
+   - scrollbar, nav, timer, pill text all toggle with .light-mode
+   ========================================================= */
+
+:root{
+  /* core palette */
+  --bg-main: #050816;
+  --bg-layer: #0b1020;
+  --card-bg: rgba(255,255,255,0.06);
+  --card-border: rgba(255,255,255,0.16);
+  --accent: #6366f1;
+  --accent-soft: #22d3ee;
+  --accent-warm: #f97316;
+  --radius-lg: 18px;
+  --shadow-soft: 0 18px 40px rgba(0,0,0,0.45);
+  --transition-fast: 0.18s ease-out;
+
+  /* text (defaults for dark) */
+  --text-main: #f9fafb;
+  --text-muted: rgba(249,250,251,0.7);
+
+  /* pill / chip colors (use semitransparent light over dark, reversed in light mode) */
+  --pill-bg: rgba(255,255,255,0.06);      /* subtle translucent in dark */
+  --pill-border: rgba(255,255,255,0.12);
+  --pill-text: var(--text-main);
+
+  /* nav/background specifics */
+  --nav-bg: linear-gradient(180deg, rgba(15,23,42,0.95), rgba(15,23,42,0.85));
+  --topnav-bg: linear-gradient(to right, rgba(15,23,42,0.9), rgba(15,23,42,0.4));
+
+  /* scrollbar */
+  --scroll-thumb: rgba(31,41,55,0.9);
+  --scroll-thumb-light: #d1d5db;
+
+  /* timer ring */
+  --timer-ring-1: #22d3ee;
+  --timer-ring-2: #6366f1;
+  --timer-ring-empty: rgba(15,23,42,1);
+
+  /* friendly defaults for light-mode are defined in body.light-mode block */
+}
+
+/* ---------- base reset / typography ---------- */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%;font-family:"Inter", system-ui, -apple-system, BlinkMacSystemFont,"SF Pro Text",sans-serif;-webkit-font-smoothing:antialiased}
+html,body{font-size:15px;transition:background 0.4s ease,color 0.4s ease}
+body{display:flex;flex-direction:column;background:radial-gradient(circle at top left,#1f2933,#020617 55%,#000 100%);color:var(--text-main);overflow:hidden}
+
+/* Headings: Instrument Serif */
+h1,h2,h3,h4,h5,h6,.view-title,.card-title{font-family:"Instrument Serif",serif;letter-spacing:0.01em}
+.view-title{font-size:24px;font-weight:600}
+.view-subtitle{font-size:13px}
+.card-title{font-size:15px;font-weight:600}
+.card-subtitle{font-size:12px}
+
+/* Layout */
+.shell{display:grid;grid-template-columns:260px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);height:100vh;position:relative}
+@media(max-width:900px){.shell{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr) auto}}
+
+/* Top nav */
+.top-nav{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;position:relative;z-index:5;background:var(--topnav-bg);border-bottom:1px solid rgba(148,163,184,0.18);backdrop-filter:blur(18px);transition:background 0.4s ease,border-color 0.4s ease,color 0.4s ease}
+.logo-wrap{display:flex;align-items:center;gap:10px}
+.logo-orb{width:30px;height:30px;border-radius:999px;background:conic-gradient(from 160deg,#6366f1,#22c55e,#ec4899,#6366f1);box-shadow:0 0 16px rgba(129,140,248,0.8);position:relative;overflow:hidden}
+.logo-orb::after{content:"";position:absolute;inset:4px;border-radius:inherit;background:radial-gradient(circle at 20% 10%,rgba(255,255,255,0.8),transparent 55%);mix-blend-mode:screen}
+.logo-title{font-weight:600;letter-spacing:0.04em;font-size:19px;font-family:"Instrument Serif",serif}
+.logo-sub{font-size:12px;color:var(--text-muted)}
+.top-right{display:flex;align-items:center;gap:12px}
+
+/* pill + avatar + toggle */
+.pill-chip{padding:4px 10px;border-radius:999px;font-size:11px;border:1px solid rgba(148,163,184,0.5);color:var(--text-muted);transition:background .4s ease,color .4s ease,border-color .4s ease;background:var(--pill-bg);border-color:var(--pill-border)}
+.avatar{width:32px;height:32px;border-radius:999px;background:linear-gradient(135deg,#4f46e5,#ec4899);display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;box-shadow:0 0 0 2px rgba(15,23,42,0.9);cursor:pointer;transition:transform var(--transition-fast)}
+.avatar:hover{transform:translateY(-1px) scale(1.02)}
+.theme-toggle{width:32px;height:32px;border-radius:999px;border:1px solid rgba(148,163,184,0.6);background:rgba(15,23,42,0.9);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:background .3s ease,border-color .3s ease,transform .2s ease,color .3s ease}
+.theme-toggle:hover{transform:translateY(-1px) scale(1.05);border-color:rgba(56,189,248,0.9)}
+
+/* Sidebar */
+.sidebar{grid-row:2/-1;background:var(--nav-bg);border-right:1px solid rgba(148,163,184,0.18);padding:16px 14px;display:flex;flex-direction:column;gap:18px;backdrop-filter:blur(16px);transition:background .4s ease,border-color .4s ease,color .4s ease}
+@media(max-width:900px){.sidebar{display:none}}
+.sidebar-title{font-size:11px;text-transform:uppercase;letter-spacing:0.16em;color:rgba(148,163,184,0.9);margin-bottom:4px}
+.nav-list{display:flex;flex-direction:column;gap:4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:999px;cursor:pointer;font-size:13px;color:var(--text-muted);border:1px solid transparent;transition:background var(--transition-fast),border var(--transition-fast),transform var(--transition-fast),color var(--transition-fast)}
+.nav-item span.icon{font-size:16px}
+.nav-item.active{background:radial-gradient(circle at top left,rgba(99,102,241,0.3),rgba(15,23,42,0.8));border-color:rgba(129,140,248,0.7);color:var(--text-main);transform:translateY(-1px)}
+.nav-item:hover:not(.active){background:rgba(15,23,42,0.85);border-color:rgba(148,163,184,0.45);transform:translateY(-0.5px)}
+/* ensure nav items pick up variable-driven color */
+.nav-item, .nav-item .icon { color: var(--text-muted); transition: color .25s ease }
+.nav-item.active { color: var(--text-main) }
+
+/* Bottom nav (mobile) */
+.bottom-nav{display:none}
+@media(max-width:900px){
+  .bottom-nav{display:flex;position:fixed;bottom:0;left:0;right:0;padding:10px 16px env(safe-area-inset-bottom);background:linear-gradient(180deg,rgba(15,23,42,0.9),rgba(15,23,42,1));border-top:1px solid rgba(148,163,184,0.28);z-index:20;transition:background .4s ease,border-color .4s ease}
+  .bottom-nav-inner{display:flex;width:100%;justify-content:space-between;gap:6px}
+  .bottom-nav-btn{flex:1;border-radius:999px;padding:6px 6px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid transparent;background:transparent;color:var(--text-muted);font-size:11px;cursor:pointer;transition:all var(--transition-fast)}
+  .bottom-nav-btn span{font-size:16px}
+  .bottom-nav-btn.active{background:radial-gradient(circle at top,rgba(99,102,241,0.5),rgba(15,23,42,0.9));border-color:rgba(129,140,248,0.7);color:var(--text-main);transform:translateY(-1px)}
+}
+
+/* Main area */
+.main{grid-row:2/-1;background:radial-gradient(circle at top,rgba(15,23,42,0.9),#020617);padding:16px 18px 18px;overflow:hidden;position:relative;transition:background .4s ease}
+@media(max-width:900px){.main{padding-bottom:80px}}
+.main-inner{max-width:1160px;height:100%;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+
+/* Views */
+.view{display:none;height:100%;overflow-y:auto;padding-right:2px;padding-bottom:4px}
+.view.active{display:block;animation:fadeInUp .26s ease-out}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Generic card */
+.card{background:linear-gradient(135deg,rgba(15,23,42,0.92),rgba(15,23,42,0.85));border-radius:var(--radius-lg);border:1px solid var(--card-border);box-shadow:var(--shadow-soft);padding:14px 15px;position:relative;overflow:hidden;transition:background .4s ease,border-color .4s ease,color .4s ease,box-shadow .4s ease}
+.card.glass{background:var(--card-bg);backdrop-filter:blur(22px)}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.card-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:10px}
+
+/* Buttons */
+.btn{border-radius:999px;padding:7px 14px;font-size:13px;border:1px solid transparent;background:radial-gradient(circle at top left,#6366f1,#22d3ee);color:white;cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:0 10px 25px rgba(59,130,246,0.45);transition:transform var(--transition-fast),box-shadow var(--transition-fast),filter var(--transition-fast),background .4s ease;white-space:nowrap}
+.btn span.emoji{font-size:16px}
+.btn:hover{transform:translateY(-1px) scale(1.01);box-shadow:0 14px 32px rgba(59,130,246,0.7);filter:brightness(1.05)}
+.btn-secondary{background:transparent;border-color:rgba(148,163,184,0.4);color:var(--text-muted);box-shadow:none}
+.btn-secondary:hover{border-color:rgba(148,163,184,0.8);color:var(--text-main);transform:translateY(-1px)}
+.btn-ghost{background:transparent;border:none;color:var(--text-muted);padding-inline:0;box-shadow:none}
+.btn-ghost:hover{color:var(--text-main);transform:translateY(-1px)}
+.btn-full{width:100%;justify-content:center}
+
+/* Dashboard */
+.dashboard-top{display:grid;grid-template-columns:minmax(0,2.3fr) minmax(0,2fr);gap:12px;margin-bottom:10px}
+@media(max-width:900px){.dashboard-top{grid-template-columns:minmax(0,1fr)}}
+.big-archetype{display:flex;flex-direction:column;height:100%;gap:8px}
+.big-archetype-main{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.big-emoji{width:60px;height:60px;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:32px;background:radial-gradient(circle at top,rgba(96,165,250,0.4),rgba(15,23,42,1));box-shadow:0 15px 35px rgba(59,130,246,0.5);transition:background .4s ease,box-shadow .4s ease}
+.big-archetype-text{flex:1}
+.tag-soft{font-size:11px;color:var(--text-muted);margin-bottom:4px}
+.big-archetype-name{font-size:18px;font-weight:600;font-family:"Instrument Serif",serif}
+.big-archetype-sub{font-size:13px;color:var(--text-muted)}
+
+/* streak pill - use pill variables */
+.streak-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:radial-gradient(circle at top,rgba(249,115,22,0.15),rgba(15,23,42,1));border:1px solid rgba(248,113,22,0.6);box-shadow:0 0 18px rgba(248,113,22,0.5);font-size:12px;position:relative;overflow:hidden;transition:background .4s ease,border-color .4s ease,box-shadow .4s ease,color .4s ease}
+.streak-pill span.flame{font-size:15px;animation:flamePulse 1.8s ease-in-out infinite}
+
+/* mini arc */
+.mini-arc{height:100px;position:relative;border-radius:16px;background:radial-gradient(circle at top,rgba(129,140,248,0.25),rgba(15,23,42,1));overflow:hidden;transition:background .4s ease}
+.mini-arc-inner{position:absolute;inset:10px 12px;display:flex;align-items:flex-end;gap:6px}
+.mini-arc-dot{flex:1;border-radius:999px;background:linear-gradient(to top,rgba(55,65,81,0.9),rgba(59,130,246,0.9));position:relative;overflow:hidden}
+.mini-arc-dot span{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-size:15px}
+
+/* Stats cards */
+.stats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:10px}
+@media(max-width:900px){.stats-grid{grid-template-columns:minmax(0,1fr)}}
+.bar-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.bar-row{display:flex;align-items:center;gap:8px}
+.bar-label{width:80px;font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar{flex:1;height:6px;border-radius:999px;background:rgba(30,64,175,0.6);overflow:hidden;position:relative;transition:background .4s ease}
+.bar-fill{position:absolute;inset:0;transform-origin:left;background:linear-gradient(to right,#6366f1,#22c55e);transform:scaleX(0.4)}
+.badge-soft{font-size:11px;padding:1px 6px;border-radius:999px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.5);color:#bbf7d0}
+
+/* axis pill uses pill variables */
+.axis-pill{margin-top:10px;border-radius:16px;padding:6px;border:1px solid rgba(148,163,184,0.4);display:flex;flex-direction:column;gap:4px;font-size:11px;transition:background .4s ease,border-color .4s ease,color .4s ease;background:var(--pill-bg);color:var(--pill-text);border-color:var(--pill-border)}
+.axis-name-row{display:flex;justify-content:space-between;color:var(--text-muted)}
+.axis-track{position:relative;height:6px;border-radius:999px;background:rgba(15,23,42,1);overflow:hidden;transition:background .4s ease}
+.axis-thumb{position:absolute;top:-3px;width:18px;height:12px;border-radius:999px;background:linear-gradient(to right,var(--accent-soft),var(--accent));box-shadow:0 0 8px rgba(59,130,246,0.5);transform:translateX(30%)}
+
+/* mini calendar row */
+.calendar-mini-row{display:flex;align-items:center;gap:6px;margin-top:8px}
+.calendar-mini-day{width:26px;height:32px;border-radius:10px;border:1px solid rgba(148,163,184,0.35);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:16px;color:var(--text-muted);background:var(--pill-bg);transition:background .4s ease,border-color .4s ease,color .4s ease}
+.calendar-mini-day span.date{font-size:9px;margin-bottom:2px}
+
+/* friend chip */
+.friend-chip{display:flex;align-items:center;gap:6px;font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid rgba(148,163,184,0.4);background:var(--pill-bg);transition:background .4s ease,border-color .4s ease,color .4s ease;color:var(--pill-text)}
+.friend-chip-avatar{width:18px;height:18px;border-radius:999px;background:linear-gradient(135deg,#4f46e5,#a855f7);display:flex;align-items:center;justify-content:center;font-size:11px}
+
+/* Daily session / orbit dot / mood btn / swipe etc */
+.centered-panel{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:12px;padding-bottom:16px}
+.splash-gradient{background:radial-gradient(circle at top,rgba(129,140,248,0.35),rgba(15,23,42,0.95));border-radius:24px;padding:20px 18px;border:1px solid rgba(129,140,248,0.5);position:relative;overflow:hidden;transition:background .4s ease,border-color .4s ease}
+.splash-gradient::before{content:"";position:absolute;width:210px;height:210px;border-radius:999px;background:radial-gradient(circle,rgba(244,114,182,0.4),transparent 60%);top:-60px;right:-50px;opacity:0.5}
+.splash-heading{font-size:22px;font-weight:600;margin-bottom:4px;font-family:"Instrument Serif",serif}
+.splash-text{font-size:13px;color:var(--text-muted);max-width:320px}
+.splash-bottom{margin-top:16px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;color:var(--text-muted)}
+.orbit-row{display:flex;gap:4px}
+.orbit-dot{width:20px;height:20px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:13px;background:var(--pill-bg);border:1px solid var(--pill-border);box-shadow:0 4px 10px rgba(0,0,0,0.35);animation:floatOrbit 4s ease-in-out infinite;color:var(--pill-text)}
+.orbit-dot:nth-child(2){animation-delay:0.3s}
+.orbit-dot:nth-child(3){animation-delay:0.6s}
+@keyframes floatOrbit{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+/* progress bars, questions */
+.session-progress{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;color:var(--text-muted)}
+.progress-bar{flex:1;height:4px;border-radius:999px;background:rgba(31,41,55,0.9);overflow:hidden;position:relative}
+.progress-fill{position:absolute;inset:0;transform-origin:left;background:linear-gradient(to right,var(--accent-soft),var(--accent));transform:scaleX(0);transition:transform .2s ease-out}
+.question-card{margin-top:8px;background:linear-gradient(135deg,rgba(15,23,42,0.96),rgba(15,23,42,0.9));border-radius:18px;border:1px solid rgba(148,163,184,0.4);padding:14px 14px 12px;box-shadow:var(--shadow-soft);position:relative;overflow:hidden;touch-action:pan-y;transition:background .4s ease,border-color .4s ease,box-shadow .4s ease,color .4s ease}
+.question-meta{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-muted);margin-bottom:6px}
+.question-text{font-size:15px;margin-bottom:10px;line-height:1.4;cursor:pointer}
+.question-text span.hold-hint{font-size:11px;color:rgba(148,163,184,0.9);display:block;margin-top:2px}
+
+/* sliders */
+.slider-row{margin-top:8px}
+.slider-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px}
+.range-input{width:100%;-webkit-appearance:none;appearance:none;height:4px;border-radius:999px;background:rgba(31,41,55,0.9);outline:none}
+.range-input::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:999px;background:radial-gradient(circle at top,var(--accent-soft),var(--accent));box-shadow:0 0 0 3px rgba(15,23,42,1),0 0 14px rgba(129,140,248,0.8);cursor:pointer;margin-top:-6px}
+.range-input::-moz-range-thumb{width:16px;height:16px;border-radius:999px;background:radial-gradient(circle at top,var(--accent-soft),var(--accent));box-shadow:0 0 0 3px rgba(15,23,42,1),0 0 14px rgba(129,140,248,0.8);cursor:pointer}
+
+/* mood buttons (use pill colours so text visible) */
+.mood-row{margin-top:8px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-muted)}
+.mood-emojis{display:flex;gap:4px}
+.mood-btn{width:26px;height:26px;border-radius:999px;background:var(--pill-bg);border:1px solid var(--pill-border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;transition:all var(--transition-fast);color:var(--pill-text)}
+.mood-btn.active{border-color:var(--accent-soft);box-shadow:0 0 10px rgba(34,211,238,0.15);transform:translateY(-1px)}
+
+/* swipe hints */
+.swipe-hints{margin-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-muted)}
+.swipe-btns{display:flex;gap:6px}
+.swipe-btn{border-radius:999px;padding:4px 8px;border:1px solid rgba(148,163,184,0.4);background:var(--pill-bg);font-size:11px;color:var(--pill-text);cursor:pointer;display:inline-flex;align-items:center;gap:3px;Transition:all var(--transition-fast)}
+.swipe-btn:hover{border-color:rgba(148,163,184,0.9);color:var(--text-main)}
+
+/* summary & ritual */
+.summary-card{margin-top:8px}
+.summary-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;font-size:11px}
+.summary-pill{padding:4px 8px;border-radius:999px;border:1px solid var(--pill-border);background:var(--pill-bg);display:inline-flex;align-items:center;gap:4px;transition:background .4s ease,border-color .4s ease,color .4s ease;color:var(--pill-text)}
+
+.ritual-screen{margin-top:8px;border-radius:22px;border:1px solid rgba(56,189,248,0.6);background:radial-gradient(circle at top,rgba(56,189,248,0.25),rgba(15,23,42,0.95));padding:16px 16px 14px;position:relative;overflow:hidden;transition:background .4s ease,border-color .4s ease}
+.ritual-screen::after{content:"";position:absolute;width:300px;height:300px;border-radius:999px;border:1px dashed rgba(125,211,252,0.3);top:-200px;left:-120px;opacity:0.4}
+.ritual-heading{font-size:15px;font-weight:500;margin-bottom:4px;font-family:"Instrument Serif",serif}
+.ritual-sub{font-size:13px;color:var(--text-muted);margin-bottom:10px}
+.ritual-layout{display:flex;gap:14px;align-items:center}
+@media(max-width:600px){.ritual-layout{flex-direction:column;align-items:flex-start}}
+
+/* timer orb uses CSS variables so it flips in light mode */
+.timer-orb{width:90px;height:90px;border-radius:999px;background:radial-gradient(circle at top,rgba(34,211,238,0.2),rgba(15,23,42,1));border:1px solid rgba(125,211,252,0.8);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;box-shadow:0 15px 35px rgba(56,189,248,0.5);transition:background .4s ease,border-color .4s ease,box-shadow .4s ease}
+.timer-orb-circle{position:absolute;inset:6px;border-radius:inherit;background:conic-gradient(var(--timer-ring-1) 0deg, var(--timer-ring-2) 120deg, var(--timer-ring-empty) 120deg);mask:radial-gradient(farthest-side,transparent 62%,black 63%);-webkit-mask:radial-gradient(farthest-side,transparent 62%,black 63%);transform:rotate(0deg);transition:transform .2s linear}
+.timer-orb-inner{position:relative;z-index:2;text-align:center;font-size:22px;font-weight:500;color:var(--text-main)}
+.timer-orb-label{font-size:10px;color:var(--text-muted);margin-top:2px}
+.ritual-steps{flex:1;font-size:13px;color:var(--text-muted);display:flex;flex-direction:column;gap:6px}
+.ritual-steps li{margin-left:18px;margin-bottom:2px}
+
+/* completion + emoji drop */
+.completion-card{margin-top:8px;text-align:center}
+.completion-title{font-size:18px;font-weight:600;margin-bottom:4px;font-family:"Instrument Serif",serif}
+.completion-sub{font-size:13px;color:var(--text-muted);margin-bottom:10px}
+.emoji-drop-overlay{position:fixed;inset:0;z-index:40;background:radial-gradient(circle at top,rgba(15,23,42,0.96),rgba(15,23,42,1));display:none;align-items:center;justify-content:center;transition:opacity .4s ease}
+.emoji-drop-overlay.active{display:flex}
+.emoji-drop-stage{width:min(520px,100vw-40px);height:min(380px,70vh);border-radius:24px;border:1px solid rgba(148,163,184,0.7);background:radial-gradient(circle at top,rgba(56,189,248,0.25),rgba(15,23,42,1));box-shadow:0 22px 60px rgba(15,23,42,0.9);position:relative;overflow:hidden;padding:16px;transition:background .4s ease,border-color .4s ease}
+.emoji-drop-calendar{position:absolute;inset:64px 14px 12px 14px;border-radius:18px;background:var(--pill-bg);border:1px solid var(--pill-border);padding:8px;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font-size:12px;transition:background .4s ease,border-color .4s ease}
+.emoji-drop-emoji{position:absolute;top:-80px;left:50%;transform:translateX(-50%);font-size:40px;animation:dropIn .9s ease-out forwards}
+@keyframes dropIn{0%{transform:translate(-50%,-140px) scale(.9)}60%{transform:translate(-50%,190px) scale(1.1)}80%{transform:translate(-50%,170px) scale(.95)}100%{transform:translate(-50%,178px) scale(1)}}
+.emoji-drop-today{position:absolute;border-radius:10px;box-shadow:0 0 0 0 rgba(56,189,248,0.6);animation:tileGlow 1s ease-out forwards}
+@keyframes tileGlow{0%{box-shadow:0 0 0 0 rgba(56,189,248,0.9)}100%{box-shadow:0 0 0 18px rgba(56,189,248,0)}}
+
+/* Calendar view */
+.calendar-main{display:flex;flex-direction:column;gap:10px}
+.calendar-header{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.calendar-header-left{display:flex;flex-direction:column;gap:2px}
+.calendar-month{font-size:16px;font-weight:500;font-family:"Instrument Serif",serif}
+.calendar-nav-btns{display:flex;gap:6px}
+.calendar-nav-btn{border-radius:999px;padding:4px 8px;border:1px solid rgba(148,163,184,0.5);background:var(--pill-bg);font-size:12px;color:var(--text-muted);cursor:pointer;display:inline-flex;align-items:center;gap:3px;transition:all var(--transition-fast)}
+.calendar-nav-btn:hover{border-color:rgba(148,163,184,0.9);color:var(--text-main)}
+.calendar-grid{margin-top:4px;border-radius:18px;border:1px solid rgba(148,163,184,0.5);overflow:hidden;background:var(--pill-bg);transition:background .4s ease,border-color .4s ease}
+.calendar-grid-inner{padding:6px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;font-size:11px}
+.calendar-day-header{text-align:center;color:var(--text-muted);padding:4px 0;font-size:10px}
+.calendar-tile{min-height:48px;border-radius:12px;border:1px solid rgba(31,41,55,1);background:linear-gradient(135deg,rgba(15,23,42,1),rgba(15,23,42,0.9));display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:3px 2px;cursor:pointer;transition:all var(--transition-fast);position:relative;overflow:hidden}
+.calendar-tile:hover{border-color:rgba(148,163,184,0.8);transform:translateY(-1px)}
+.calendar-tile-date{font-size:9px;color:var(--text-muted)}
+.calendar-tile-emoji{font-size:18px;margin-top:2px}
+.calendar-empty{opacity:.35}
+.calendar-today-outline{box-shadow:0 0 0 1px rgba(56,189,248,0.8)}
+.calendar-detail-sheet{margin-top:6px;border-radius:16px;border:1px solid rgba(148,163,184,0.6);background:radial-gradient(circle at top,rgba(56,189,248,0.2),rgba(15,23,42,1));padding:8px 10px;font-size:12px;transition:background .4s ease,border-color .4s ease}
+.calendar-detail-row{display:flex;justify-content:space-between;margin-top:2px;color:var(--text-muted)}
+
+/* Friends/profile/search */
+.friends-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.6fr);gap:10px}
+@media(max-width:900px){.friends-layout{grid-template-columns:minmax(0,1fr)}}
+.friends-list{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.friend-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 8px;border-radius:14px;border:1px solid rgba(31,41,55,1);background:var(--pill-bg);cursor:pointer;transition:all var(--transition-fast)}
+.friend-row:hover{border-color:rgba(148,163,184,0.8);transform:translateY(-1px)}
+.friend-main{display:flex;align-items:center;gap:8px}
+.friend-avatar{width:30px;height:30px;border-radius:999px;background:linear-gradient(135deg,#4f46e5,#c4b5fd);display:flex;align-items:center;justify-content:center;font-size:16px}
+.friend-info{display:flex;flex-direction:column;gap:2px}
+.friend-name{font-size:13px}
+.friend-meta{font-size:11px;color:var(--text-muted)}
+.friend-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;font-size:11px;color:var(--text-muted)}
+
+.chips-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;font-size:11px}
+.chip{padding:3px 7px;border-radius:999px;border:1px solid var(--pill-border);background:var(--pill-bg);transition:background .4s ease,border-color .4s ease,color .4s ease;color:var(--pill-text)}
+.search-input{width:100%;padding:7px 9px;border-radius:999px;border:1px solid rgba(148,163,184,0.5);background:var(--pill-bg);color:var(--text-main);font-size:12px;outline:none;transition:border var(--transition-fast),box-shadow var(--transition-fast),background .4s ease,color .4s ease}
+.search-input::placeholder{color:rgba(148,163,184,0.8)}
+.search-input:focus{border-color:rgba(56,189,248,0.9);box-shadow:0 0 0 1px rgba(56,189,248,0.9)}
+
+/* profile layout and toggles */
+.profile-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.5fr);gap:10px}
+@media(max-width:900px){.profile-layout{grid-template-columns:minmax(0,1fr)}}
+.profile-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.profile-avatar{width:54px;height:54px;border-radius:999px;background:conic-gradient(#4f46e5,#22c55e,#a855f7,#4f46e5);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 14px 30px rgba(59,130,246,0.8)}
+.toggle-row{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:12px;color:var(--text-muted)}
+.toggle-switch{position:relative;width:36px;height:20px;border-radius:999px;background:rgba(31,41,55,0.9);border:1px solid rgba(148,163,184,0.7);cursor:pointer;transition:background var(--transition-fast),border var(--transition-fast)}
+.toggle-switch::after{content:"";position:absolute;width:14px;height:14px;border-radius:999px;top:2px;left:2px;background:radial-gradient(circle at top,#f9fafb,#e5e7eb);box-shadow:0 0 8px rgba(148,163,184,0.9);transition:transform var(--transition-fast)}
+.toggle-switch.active{background:linear-gradient(to right,#22c55e,#4ade80);border-color:rgba(74,222,128,0.9)}
+.toggle-switch.active::after{transform:translateX(14px)}
+
+/* Toast */
+.toast{position:fixed;bottom:78px;right:16px;max-width:260px;border-radius:14px;border:1px solid rgba(148,163,184,0.6);background:rgba(15,23,42,0.98);padding:8px 10px;font-size:12px;color:var(--text-muted);box-shadow:0 18px 40px rgba(15,23,42,0.9);display:none;z-index:50;transition:background .4s ease,border-color .4s ease,color .4s ease}
+.toast.active{display:block;animation:toastIn .2s ease-out,toastOut .2s ease-in 2.5s forwards}
+@keyframes toastIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@keyframes toastOut{to{opacity:0;transform:translateY(4px)}}
+.toast-title{font-size:12px;color:var(--text-main);margin-bottom:2px}
+
+/* Scrollbar (WebKit + Firefox) — use variables so they toggle */
+.view::-webkit-scrollbar{width:6px}
+.view::-webkit-scrollbar-track{background:transparent}
+.view::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:999px}
+body.light-mode .view::-webkit-scrollbar-thumb{background:var(--scroll-thumb-light)}
+/* Firefox */
+body{scrollbar-color:var(--scroll-thumb) transparent}
+body.light-mode{scrollbar-color:var(--scroll-thumb-light) transparent}
+
+/* ---------- Login overlay ---------- */
+#loginOverlay{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at top,rgba(15,23,42,0.96),rgba(15,23,42,0.98));backdrop-filter:blur(18px);transition:opacity .4s ease,visibility .4s ease}
+#loginOverlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.login-card{max-width:380px;width:90%;border-radius:22px;border:1px solid rgba(148,163,184,0.6);background:radial-gradient(circle at top,rgba(129,140,248,0.25),rgba(15,23,42,0.98));padding:22px 20px 20px;box-shadow:0 24px 60px rgba(0,0,0,0.8);text-align:center}
+.login-logo{width:40px;height:40px;border-radius:14px;margin:0 auto 8px;background:conic-gradient(#6366f1,#22d3ee,#a855f7,#6366f1);display:flex;align-items:center;justify-content:center;font-size:22px}
+.login-title{font-family:"Instrument Serif",serif;font-size:24px;margin-bottom:6px}
+.login-sub{font-size:13px;color:var(--text-muted);margin-bottom:16px}
+.google-btn{width:100%;border-radius:999px;border:1px solid rgba(148,163,184,0.7);background:#f9fafb;color:#111827;height:42px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font-size:14px;font-weight:500;transition:transform .15s ease,box-shadow .15s ease,background .2s ease}
+.google-btn:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(15,23,42,0.35);background:#ffffff}
+.google-icon{width:18px;height:18px;border-radius:4px;background:conic-gradient(#ea4335,#fbbc05,#34a853,#4285f4,#ea4335);display:inline-block}
+.login-foot{margin-top:10px;font-size:11px;color:rgba(148,163,184,0.9)}
+
+/* ---------- LIGHT MODE OVERRIDES ---------- */
+body.light-mode{
+  /* swap core text variables */
+  --text-main:#111827;
+  --text-muted:#6b7280;
+
+  /* background / card */
+  --bg-main:#f7f7f8;
+  --bg-layer:#eef2f6;
+  --card-bg:rgba(255,255,255,0.96);
+  --card-border:rgba(209,213,219,0.95);
+
+  /* pills become subtle light */
+  --pill-bg:rgba(255,255,255,0.96);
+  --pill-border:rgba(209,213,219,0.9);
+  --pill-text:var(--text-main);
+
+  /* nav / top */
+  --nav-bg:linear-gradient(180deg,#f9fafb,#e5e7eb);
+  --topnav-bg:linear-gradient(to right,rgba(249,250,251,0.92),rgba(226,232,240,0.9));
+
+  /* scroll bar light */
+  --scroll-thumb:var(--scroll-thumb-light);
+
+  /* timer ring lighter / reversed stop so it blends */
+  --timer-ring-1:#0ea5e9;
+  --timer-ring-2:#6366f1;
+  --timer-ring-empty:#e5e7eb;
+}
+
+/* Some specific light-mode overrides for visuals that previously didn't flip */
+body.light-mode .top-nav{background:var(--topnav-bg);border-bottom-color:rgba(209,213,219,0.9)}
+body.light-mode .sidebar{background:var(--nav-bg);border-right-color:rgba(209,213,219,0.9)}
+body.light-mode .pill-chip{border-color:var(--pill-border);background:var(--pill-bg);color:var(--pill-text)}
+body.light-mode .theme-toggle{background:#f9fafb;border-color:rgba(156,163,175,0.9)}
+body.light-mode .main{background:radial-gradient(circle at top,#e5e7eb,#f3f4f6)}
+body.light-mode .card, body.light-mode .card.glass{background:var(--card-bg);border-color:var(--card-border);color:var(--text-main);box-shadow:0 10px 30px rgba(15,23,42,0.08)}
+body.light-mode .big-emoji{background:radial-gradient(circle at top,rgba(191,219,254,1),rgba(239,246,255,1));box-shadow:0 14px 32px rgba(59,130,246,0.3)}
+body.light-mode .streak-pill{background:radial-gradient(circle at top,rgba(254,243,199,1),rgba(255,251,235,1));border-color:rgba(251,191,36,0.9);box-shadow:0 0 12px rgba(251,191,36,0.5);color:var(--text-main)}
+body.light-mode .mini-arc{background:radial-gradient(circle at top,#eff6ff,#e5e7eb)}
+body.light-mode .bar{background:rgba(209,213,219,1)}
+body.light-mode .axis-track{background:rgba(229,231,235,1)}
+body.light-mode .calendar-mini-day{background:var(--pill-bg);border-color:var(--pill-border);color:var(--pill-text)}
+body.light-mode .friend-chip{background:var(--pill-bg);border-color:var(--pill-border);color:var(--pill-text)}
+body.light-mode .question-card{background:var(--card-bg);border-color:var(--card-border)}
+body.light-mode .axis-pill{background:var(--pill-bg);border-color:var(--pill-border);color:var(--pill-text)}
+body.light-mode .chip{background:var(--pill-bg);border-color:var(--pill-border);color:var(--pill-text)}
+body.light-mode .search-input{background:var(--pill-bg);border-color:var(--pill-border);color:var(--text-main)}
+body.light-mode .friend-row{background:var(--pill-bg);border-color:var(--pill-border)}
+body.light-mode .calendar-grid{background:var(--pill-bg);border-color:var(--pill-border)}
+body.light-mode .calendar-tile{background:linear-gradient(135deg,#f9fafb,#e5e7eb);border-color:rgba(209,213,219,1);color:var(--text-main)}
+body.light-mode .calendar-detail-sheet{background:radial-gradient(circle at top,#eff6ff,#f9fafb);border-color:rgba(209,213,219,0.9);color:var(--text-main)}
+body.light-mode .ritual-screen{background:radial-gradient(circle at top,#e0f2fe,#f9fafb);border-color:rgba(56,189,248,0.7)}
+body.light-mode .timer-orb{background:radial-gradient(circle at top,#bae6fd,#e0f2fe);border-color:rgba(56,189,248,0.8);box-shadow:0 10px 24px rgba(56,189,248,0.4)}
+body.light-mode .emoji-drop-overlay{background:radial-gradient(circle at top,rgba(249,250,251,0.96),rgba(243,244,246,0.98))}
+body.light-mode .emoji-drop-stage{background:radial-gradient(circle at top,#eff6ff,#f9fafb);border-color:rgba(209,213,219,0.9)}
+body.light-mode .emoji-drop-calendar{background:var(--pill-bg);border-color:var(--pill-border)}
+body.light-mode .toast{background:#111827;border-color:rgba(55,65,81,1);color:#e5e7eb}
+
+/* ---------- FINAL TEXT TOGGLING SYSTEM ---------- */
+/* default text variables already set — now apply globally but exclude buttons so they keep intended styles */
+body, body *:not(button):not(.btn):not(.google-btn){
+  color:var(--text-main);
+}
+
+/* Keep muted / secondary selectors using --text-muted */
+.view-subtitle,.card-subtitle,.tag-soft,.completion-sub,.friend-meta,.axis-name-row,.calendar-day-header,.calendar-detail-row span,.mood-row span,.question-meta,.slider-labels span,.toast,.splash-text,.login-sub,.login-foot,.toggle-row span,.search-input::placeholder{
+  color:var(--text-muted) !important;
+}
+
+/* make sure calendar date keeps muted */
+.calendar-tile-date{color:var(--text-muted) !important}
+
+/* small accessibility tweak: ensure pills have minimum contrast by adding subtle border/shadow */
+.pill-chip,.summary-pill,.chip,.friend-chip,.calendar-mini-day,.orbit-dot,.mood-btn,.swipe-btn{border:1px solid var(--pill-border);box-shadow:0 1px 0 rgba(0,0,0,0.04)}
+
+/* end of file */
+
+/* Session quote style (Instrument Serif; same size as Daily Praxis heading) */
+.session-quote {
+  font-family: "Instrument Serif", serif;
+  font-size: 22px;             /* matches splash heading "Daily Praxis" (22px) */
+  font-weight: 400;
+  color: #e2e8f0;              /* soft white - will follow variables if you prefer use var(--text-main) */
+  text-align: center;
+  line-height: 1.3;
+  margin: 24px 0;
+  padding: 0 20px;
+}
+
+/* ===== navbar / mobile nav color fixes (ensures mobile top/bottom nav flip with light-mode) ===== */
+.top-nav, .top-nav * { color: var(--text-main); }
+.top-nav { background: var(--topnav-bg); border-bottom-color: rgba(148,163,184,0.18); }
+.top-nav .pill-chip { background: var(--pill-bg); border-color: var(--pill-border); color: var(--pill-text); }
+.top-nav .logo-title, .top-nav .logo-sub { color: var(--text-main); }
+.top-nav .pill-chip, .top-right .pill-chip { color: var(--pill-text); }
+
+/* bottom (mobile) nav uses same variables so it flips correctly */
+.bottom-nav { background: var(--nav-bg); border-top-color: rgba(148,163,184,0.28); }
+.bottom-nav .bottom-nav-btn { color: var(--text-muted); background: transparent; border-color: transparent; }
+.bottom-nav .bottom-nav-btn.active { background: radial-gradient(circle at top, rgba(99,102,241,0.35), rgba(15,23,42,0.9)); border-color: rgba(129,140,248,0.6); color: var(--text-main); }
+
+/* ensure nav-item picks up variable-driven colors everywhere (desktop + mobile) */
+.nav-item, .nav-item .icon, .bottom-nav .bottom-nav-btn, .top-nav .pill-chip { transition: color .25s ease, background .25s ease, border-color .25s ease; color: var(--text-muted); }
+.nav-item.active, .bottom-nav .bottom-nav-btn.active { color: var(--text-main); }
+
+/* LIGHT-MODE explicit adjustments (in case some devices cache styles) */
+body.light-mode .top-nav { background: var(--topnav-bg); border-bottom-color: rgba(209,213,219,0.9); }
+body.light-mode .top-nav .pill-chip { background: var(--pill-bg); border-color: var(--pill-border); color: var(--pill-text); }
+body.light-mode .bottom-nav { background: var(--nav-bg); border-top-color: rgba(209,213,219,0.9); }
+body.light-mode .bottom-nav .bottom-nav-btn { color: var(--text-muted); }
+body.light-mode .bottom-nav .bottom-nav-btn.active { color: var(--text-main); background: radial-gradient(circle at top, rgba(99,102,241,0.5), rgba(249,250,251,0.95)); border-color: rgba(129,140,248,0.6); }
+
+/* small accessibility fallback: force icon color where some SVG/font-icon may not inherit */
+.top-nav svg, .top-nav img, .bottom-nav svg, .bottom-nav img { filter: none; opacity: 1; }

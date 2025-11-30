@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Praxis – Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts & styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="shell">
+  <!-- Top Nav -->
+  <header class="top-nav">
+    <div class="logo-wrap">
+      <div class="logo-orb"></div>
+      <div>
+        <div class="logo-title">Praxis</div>
+        <div class="logo-sub">2-minute daily reset</div>
+      </div>
+    </div>
+    <div class="top-right">
+      <button class="theme-toggle" id="themeToggleBtn" title="Toggle light/dark">
+        <span id="themeToggleIcon">🌙</span>
+      </button>
+      <div class="pill-chip" id="topArchetypeChip">Today: —</div>
+      <div class="pill-chip" id="topStreakChip">🔥 0-day streak</div>
+      <a class="avatar" title="Profile" id="avatarBtn" href="profile.html">K</a>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div>
+      <div class="sidebar-title">Main</div>
+      <div class="nav-list">
+        <a class="nav-item active" href="dashboard.html">
+          <span class="icon">🏠</span> Dashboard
+        </a>
+        <a class="nav-item" href="session.html">
+          <span class="icon">✨</span> Daily Praxis
+        </a>
+        <a class="nav-item" href="calendar.html">
+          <span class="icon">📆</span> Calendar
+        </a>
+        <a class="nav-item" href="friends.html">
+          <span class="icon">🤝</span> Friends
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="sidebar-title">You</div>
+      <div class="nav-list">
+        <a class="nav-item" href="profile.html">
+          <span class="icon">👤</span> Profile &amp; Settings
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="main-inner">
+
+      <!-- DASHBOARD VIEW ONLY -->
+      <section id="view-dashboard" class="view active">
+        <div class="view-header">
+          <div>
+            <div class="view-title">Dashboard</div>
+            <div class="view-subtitle">See today’s archetype, streak and recent patterns.</div>
+          </div>
+          <a class="btn" id="ctaDailyFromDashboard" href="session.html">
+            <span class="emoji">✨</span> Start today’s Praxis
+          </a>
+        </div>
+
+        <div class="dashboard-top">
+          <div class="card glass big-archetype">
+            <div class="big-archetype-main">
+              <div class="big-emoji" id="dashboardArchetypeEmoji">🌀</div>
+              <div class="big-archetype-text">
+                <div class="tag-soft">Today you lean toward</div>
+                <div class="big-archetype-name" id="dashboardArchetypeName">No archetype yet</div>
+                <div class="big-archetype-sub" id="dashboardArchetypeSummary">
+                  Complete today’s session to discover your daily archetype.
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+              <div class="streak-pill">
+                <span class="flame">🔥</span>
+                <span id="dashboardStreakText">0-day streak</span>
+              </div>
+              <div style="font-size:11px;color:var(--text-muted);">
+                Buffers: <span id="dashboardBufferCount">0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card glass">
+            <div class="card-header">
+              <div class="card-title">Daily mood arc</div>
+              <div class="card-subtitle">Last 7 days</div>
+            </div>
+            <div class="mini-arc">
+              <div class="mini-arc-inner" id="miniMoodArc">
+                <!-- Mood bars inserted by JS (if you hook app.js here) -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="card glass">
+            <div class="card-header">
+              <div class="card-title">Archetype mix</div>
+              <div class="card-subtitle">Across all days</div>
+            </div>
+            <div class="bar-list" id="archetypeBars">
+              <!-- Bars via JS -->
+            </div>
+          </div>
+
+          <div class="card glass">
+            <div class="card-header">
+              <div class="card-title">Consistency</div>
+              <div class="card-subtitle">Last 30 days</div>
+            </div>
+            <div style="margin-top:8px;">
+              <div style="display:flex;justify-content:space-between;font-size:12px;">
+                <span>Showing up</span>
+                <span id="consistencyLabel">0 / 30 days</span>
+              </div>
+              <div class="bar" style="margin-top:4px;height:8px;">
+                <div class="bar-fill" id="consistencyFill"></div>
+              </div>
+              <div class="axis-pill">
+                <div class="axis-name-row">
+                  <span>Logic</span>
+                  <span>Emotion</span>
+                </div>
+                <div class="axis-track">
+                  <div class="axis-thumb" id="axisLogicEmotion"></div>
+                </div>
+                <div class="axis-name-row" style="margin-top:4px;">
+                  <span>Action</span>
+                  <span>Reflection</span>
+                </div>
+                <div class="axis-track">
+                  <div class="axis-thumb" id="axisActionReflection"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card glass">
+            <div class="card-header">
+              <div class="card-title">This week at a glance</div>
+              <div class="card-subtitle">Emojis & your circle</div>
+            </div>
+            <div class="calendar-mini-row" id="miniWeekRow">
+              <!-- mini week -->
+            </div>
+            <div style="margin-top:8px;font-size:12px;">
+              <span style="color:var(--text-muted);">Your circle today</span>
+              <div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;" id="miniFriendsRow">
+                <!-- friend chips -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- Bottom nav (mobile) -->
+<div class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a class="bottom-nav-btn active" href="dashboard.html">
+      <span>🏠</span>
+      Home
+    </a>
+    <a class="bottom-nav-btn" href="session.html">
+      <span>✨</span>
+      Daily
+    </a>
+    <a class="bottom-nav-btn" href="calendar.html">
+      <span>📆</span>
+      Calendar
+    </a>
+    <a class="bottom-nav-btn" href="friends.html">
+      <span>🤝</span>
+      Friends
+    </a>
+  </div>
+</div>
+
+<!-- Optional: include your JS if you want dashboard logic to work -->
+<script src="app.js"></script>
+</body>
+</html>

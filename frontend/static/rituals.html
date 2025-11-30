@@ -1,0 +1,12 @@
+<!-- frontend/static/rituals.html -->
+<div id="rituals-root" class="card">
+  <h2 id="archetype-title" class="card-title">Your Archetype</h2>
+  <p id="archetype-sub" class="card-subtitle">Loading…</p>
+  <div id="philosophies-container"><h4>Philosophies</h4><ul id="philosophies-list"></ul></div>
+  <div id="rituals-container"><h4>Rituals</h4><ul id="rituals-list"></ul></div>
+</div>
+<script src="/static/app.js"></script>
+<script>
+  // ensure server injects the logged-in user's id; otherwise set it manually for dev/testing:
+  window.CURRENT_USER_ID = window.CURRENT_USER_ID || null;
+</script>

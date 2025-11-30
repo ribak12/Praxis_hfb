@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Praxis – Friends</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts & styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="shell">
+  <!-- Top Nav -->
+  <header class="top-nav">
+    <div class="logo-wrap">
+      <div class="logo-orb"></div>
+      <div>
+        <div class="logo-title">Praxis</div>
+        <div class="logo-sub">2-minute daily reset</div>
+      </div>
+    </div>
+    <div class="top-right">
+      <button class="theme-toggle" id="themeToggleBtn" title="Toggle light/dark">
+        <span id="themeToggleIcon">🌙</span>
+      </button>
+      <div class="pill-chip" id="topArchetypeChip">Today: —</div>
+      <div class="pill-chip" id="topStreakChip">🔥 0-day streak</div>
+      <a class="avatar" title="Profile" id="avatarBtn" href="profile.html">K</a>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div>
+      <div class="sidebar-title">Main</div>
+      <div class="nav-list">
+        <a class="nav-item" href="dashboard.html">
+          <span class="icon">🏠</span> Dashboard
+        </a>
+        <a class="nav-item" href="session.html">
+          <span class="icon">✨</span> Daily Praxis
+        </a>
+        <a class="nav-item" href="calendar.html">
+          <span class="icon">📆</span> Calendar
+        </a>
+        <a class="nav-item active" href="friends.html">
+          <span class="icon">🤝</span> Friends
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="sidebar-title">You</div>
+      <div class="nav-list">
+        <a class="nav-item" href="profile.html">
+          <span class="icon">👤</span> Profile &amp; Settings
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="main-inner">
+
+      <!-- FRIENDS VIEW ONLY -->
+      <section id="view-friends" class="view active">
+        <div class="view-header">
+          <div>
+            <div class="view-title">Friends</div>
+            <div class="view-subtitle">See who showed up today, and send tiny nudges.</div>
+          </div>
+        </div>
+
+        <div class="friends-layout">
+          <div class="card glass">
+            <div class="card-header">
+              <div class="card-title">Your circle</div>
+              <div class="card-subtitle">Streak rankings</div>
+            </div>
+            <div class="friends-list" id="friendsList">
+              <!-- friend rows via JS -->
+            </div>
+          </div>
+
+          <div class="card glass">
+            <div class="card-header">
+              <div class="card-title">Find a friend</div>
+              <div class="card-subtitle">Add by username</div>
+            </div>
+            <div style="margin-top:4px;">
+              <input type="text" class="search-input" placeholder="@username…" id="friendSearchInput">
+            </div>
+            <div class="chips-row" id="friendSearchResults" style="margin-top:8px;">
+              <!-- search results -->
+            </div>
+            <div class="friend-actions">
+              <button class="btn-secondary btn" id="sendNudgeRandom">Send random “you got this”</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- Bottom nav (mobile) -->
+<div class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a class="bottom-nav-btn" href="dashboard.html">
+      <span>🏠</span>
+      Home
+    </a>
+    <a class="bottom-nav-btn" href="session.html">
+      <span>✨</span>
+      Daily
+    </a>
+    <a class="bottom-nav-btn" href="calendar.html">
+      <span>📆</span>
+      Calendar
+    </a>
+    <a class="bottom-nav-btn active" href="friends.html">
+      <span>🤝</span>
+      Friends
+    </a>
+  </div>
+</div>
+
+<!-- Toast (used by friends JS) -->
+<div class="toast" id="toast">
+  <div class="toast-title" id="toastTitle">Toast title</div>
+  <div id="toastBody">Toast body text</div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

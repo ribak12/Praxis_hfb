@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Praxis – Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Full-screen login -->
+  <div id="loginOverlay" style="position:fixed; inset:0; display:flex; align-items:center; justify-content:center;">
+    <div class="login-card">
+      <div class="login-logo">✨</div>
+      <div class="login-title">Praxis</div>
+      <div class="login-sub">
+        A 2-minute daily reset built for Gen Z attention spans.
+        No feeds, no doomscrolling — just one small shift per day.
+      </div>
+      <button class="google-btn" id="googleLoginBtn">
+        <span class="google-icon"></span>
+        <span>Continue with Google</span>
+      </button>
+      <div class="login-foot">
+        We only use your Google account to create your Praxis profile. We’ll never post anywhere.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Very small login stub for this page:
+    const googleLoginBtn = document.getElementById("googleLoginBtn");
+    googleLoginBtn.addEventListener("click", () => {
+      // Fake login: set flag and go to dashboard
+      localStorage.setItem("praxis_logged_in", "true");
+      window.location.href = "dashboard.html";
+    });
+  </script>
+</body>
+</html>

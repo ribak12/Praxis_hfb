@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Praxis – Calendar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="shell">
+  <!-- Top Nav -->
+  <header class="top-nav">
+    <div class="logo-wrap">
+      <div class="logo-orb"></div>
+      <div>
+        <div class="logo-title">Praxis</div>
+        <div class="logo-sub">2-minute daily reset</div>
+      </div>
+    </div>
+    <div class="top-right">
+      <button class="theme-toggle" id="themeToggleBtn" title="Toggle light/dark">
+        <span id="themeToggleIcon">🌙</span>
+      </button>
+      <div class="pill-chip" id="topArchetypeChip">Today: —</div>
+      <div class="pill-chip" id="topStreakChip">🔥 0-day streak</div>
+      <a class="avatar" title="Profile" id="avatarBtn" href="profile.html">K</a>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div>
+      <div class="sidebar-title">Main</div>
+      <div class="nav-list">
+        <a class="nav-item" href="dashboard.html">
+          <span class="icon">🏠</span> Dashboard
+        </a>
+        <a class="nav-item" href="session.html">
+          <span class="icon">✨</span> Daily Praxis
+        </a>
+        <a class="nav-item active" href="calendar.html">
+          <span class="icon">📆</span> Calendar
+        </a>
+        <a class="nav-item" href="friends.html">
+          <span class="icon">🤝</span> Friends
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="sidebar-title">You</div>
+      <div class="nav-list">
+        <a class="nav-item" href="profile.html">
+          <span class="icon">👤</span> Profile &amp; Settings
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="main-inner">
+
+      <!-- CALENDAR VIEW ONLY -->
+      <section id="view-calendar" class="view active">
+        <div class="view-header">
+          <div>
+            <div class="view-title">Calendar</div>
+            <div class="view-subtitle">Every day gets an emoji for the archetype you lived in.</div>
+          </div>
+        </div>
+
+        <div class="calendar-main">
+          <div class="calendar-header">
+            <div class="calendar-header-left">
+              <div class="calendar-month" id="calendarMonthLabel">Month 2025</div>
+              <div style="font-size:12px;color:var(--text-muted);">
+                Tap a day to see the archetype, advice & ritual that landed.
+              </div>
+            </div>
+            <div class="calendar-nav-btns">
+              <button class="calendar-nav-btn" id="calendarPrevBtn">← Prev</button>
+              <button class="calendar-nav-btn" id="calendarTodayBtn">Today</button>
+              <button class="calendar-nav-btn" id="calendarNextBtn">Next →</button>
+            </div>
+          </div>
+
+          <div class="calendar-grid">
+            <div class="calendar-grid-inner" id="calendarGrid">
+              <!-- filled by JS -->
+            </div>
+          </div>
+
+          <div class="calendar-detail-sheet" id="calendarDetailSheet" style="display:none;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div><span id="detailDateLabel"></span> · <span id="detailArchetypeLabel"></span></div>
+              <div style="font-size:11px;color:var(--text-muted);" id="detailQuestionsLabel"></div>
+            </div>
+            <div class="calendar-detail-row">
+              <span>Advice</span>
+              <span id="detailAdviceSummary"></span>
+            </div>
+            <div class="calendar-detail-row">
+              <span>Ritual</span>
+              <span id="detailRitualSummary"></span>
+            </div>
+            <div class="calendar-detail-row">
+              <span>Mood</span>
+              <span id="detailMoodSummary"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- Bottom nav (mobile) -->
+<div class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a class="bottom-nav-btn" href="dashboard.html">
+      <span>🏠</span>
+      Home
+    </a>
+    <a class="bottom-nav-btn" href="session.html">
+      <span>✨</span>
+      Daily
+    </a>
+    <a class="bottom-nav-btn active" href="calendar.html">
+      <span>📆</span>
+      Calendar
+    </a>
+    <a class="bottom-nav-btn" href="friends.html">
+      <span>🤝</span>
+      Friends
+    </a>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
